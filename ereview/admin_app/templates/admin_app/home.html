@@ -1,0 +1,61 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="whyschose">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-7 offset-md-3">
+             <div class="title">
+                <h2>Why <strong class="black">choose us</strong></h2>
+                <span>Honest insights from real users.!</span>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
+
+<div class="choose_bg">
+    <div class="container">
+       <div class="white_bg">
+           <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                 <div class="for_box">
+                    <i><img src="{% static 'icon/1.png' %}" alt="Expert & User Opinions"/></i>
+                    <h3>Expert & User Opinions</h3>
+                    <p>Compare expert analysis with user experiences.</p>
+                 </div>
+              </div>
+
+              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                  <div class="for_box">
+                      <i><img src="{% static 'icon/2.png' %}" alt="Electronics-Focused"/></i>
+                      <h3>Electronics-Focused</h3>
+                      <p>Dedicated platform for electronics reviews.</p>
+                  </div>
+              </div>
+
+              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                  <div class="for_box">
+                      <i><img src="{% static 'icon/3.png' %}" alt="Simplified Decision-Making"/></i>
+                      <h3>Simplified Decision-Making</h3>
+                      <p>Find the best products quickly.</p>
+                  </div>
+              </div>
+
+              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                  <div class="for_box">
+                      <i><img src="{% static 'icon/4.png' %}" alt="Community-Driven"/></i>
+                      <h3>Community-Driven</h3>
+                      <p>Engage with tech enthusiasts and share feedback.</p>
+                  </div>
+              </div>
+
+              <div class="col-md-12 text-center">
+                  <a class="read-more" href="#">Read More</a>
+              </div>
+          </div>
+       </div>
+    </div>
+</div>
+{% endblock %}

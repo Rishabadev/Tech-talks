@@ -1,0 +1,45 @@
+{% extends 'admin_app/base.html' %}
+{% block content %}
+<div class="choose_bg">
+    <div class="container">
+        <div class="white_bg p-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="card shadow-lg p-4">
+                        {% if form %}
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    {% for field in form %}
+                                        <div class="row mb-3 align-items-center">
+                                            <label class="col-sm-3 col-form-label">{{ field.label }}</label>
+                                            <div class="col-sm-9">
+                                                {{ field }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="button-container">
+                                    <button type="submit" class="btn btn-primary px-4 py-2">Add Product</button>
+                                    <a href="{% url 'admin_product_list' %}" class="btn btn-secondary px-4 py-2">Back to Products</a>
+                                </div>
+                                
+                            </form>
+                        {% else %}
+                            <p class="text-danger text-center">Error: Form not available</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<style>
+    .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adjust this value to control spacing */
+}
+
+</style>

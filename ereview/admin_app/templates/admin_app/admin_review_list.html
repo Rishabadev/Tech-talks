@@ -1,0 +1,86 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+
+{% block content %}
+
+   
+<div class="whyschose">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-7 offset-md-3">
+            <div class="title">
+               <h2>Latest <strong class="black">Products</strong></h2>
+               <span>Honest insights from real users.!</span>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+<div class="choose_bg">
+<div class="container">
+<div class="white_bg">
+   <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+         <div class="for_box">
+            <!-- Optional content inside for_box -->
+         </div>
+      </div>
+
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+
+            
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+   <h2 class="text-center my-4">Manage Reviews</h2>
+   <div class="table-responsive">
+      <table class="table table-bordered table-striped text-center">
+         <thead class="table-dark">
+            <tr>
+               <th>Product</th>
+               <th>User</th>
+               <th>Rating</th>
+               <th>Comment</th>
+               <th>Actions</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for review in reviews %}
+            <tr>
+               <td>{{ review.product.name }}</td>
+               <td>{{ review.user.username }}</td>
+               <td>
+                  <span class="badge bg-warning text-dark">{{ review.rating }} ⭐</span>
+               </td>
+               <td>{{ review.comment }}</td>
+               <td>
+                  <form action="{% url 'admin_delete_review' review.id %}" method="post">
+                     {% csrf_token %}
+                     <button type="submit" class="btn btn-danger btn-sm">❌ Delete</button>
+                  </form>
+               </td>
+            </tr>
+            {% empty %}
+            <tr>
+               <td colspan="5" class="text-muted">No reviews found.</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+
+         </div>
+      </div>
+
+     
+   </div>
+</div>
+</div>
+</div>
+
+     
+
+ 
+
+{% endblock %}
