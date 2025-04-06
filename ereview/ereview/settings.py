@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'techtalks',
     'admin_app',
+    'core',
     
 ]
 
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'ereview.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'admin_app','templates')],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,6 +130,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL = '/admin-login/'
+LOGIN_URL = '/core_login/'
 
-LOGOUT_REDIRECT_URL = '/admin-login/'
+LOGOUT_REDIRECT_URL = '/core_login/'
+LOGIN_REDIRECT_URL = '/admin_dashboard/'

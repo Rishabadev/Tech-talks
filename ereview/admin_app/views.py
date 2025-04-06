@@ -45,11 +45,6 @@ def admin_product_list(request):
     products=Product.objects.all()
     return render(request, 'admin_app/admin_product_list.html',{'products':products})
 
-@staff_member_required
-def delete_review(request, review_id):
-    review = get_object_or_404(Review, id=review_id)
-    review.delete()
-    return HttpResponseRedirect(reverse('admin_review_list'))
     
 
 @staff_member_required
@@ -78,7 +73,6 @@ def admin_delete_review(request, review_id):
     review.delete()
     return redirect(reverse('admin_review_list'))
 
-
 def home(request):
     return render(request, 'admin_app/home.html')
 
@@ -100,22 +94,11 @@ def admin_registration(request):
         form = AdminRegistrationForm()
     return render(request, "admin_app/admin_registration.html", {"form": form})
 
+from django.contrib import messages
+from django.contrib.auth import logout
 
-def admin_login(request):
-    if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            if user.is_staff:  
-                login(request, user)
-                return redirect(reverse('admin_dashboard'))  
-            else:
-                form.add_error(None, "You are not authorized as an admin.")
-    else:
-        form = AuthenticationForm()
-    
-    return render(request, "admin_app/admin_login.html", {"form": form})
 
 def admin_logout(request):
     logout(request)
-    return redirect(reverse('admin_login'))  
+    messages.success(request, "You have successfully logged out.")
+    return redirect(reverse('core_login'))
