@@ -9,10 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 @login_required
 def user_home(request):
     return render(request, 'techtalks/user_home.html')
-@login_required
-def product_list(request):
-    products = Product.objects.all()
-    return render(request, 'techtalks/product_list.html', {'products': products})
+
 @login_required
 def add_review(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -31,15 +28,11 @@ def add_review(request, product_id):
 
 
 
-from django.shortcuts import render
-from admin_app.models import Product 
 @login_required
 def browse_products(request):
     products = Product.objects.all()
     return render(request, 'techtalks/products.html', {'products': products})
-from django.shortcuts import render, get_object_or_404, redirect
-from admin_app.models import Product, Review
-from .forms import ReviewForm
+
 @login_required
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
@@ -88,6 +81,7 @@ def user_registration(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            
             return redirect('login')
     else:
         form = UserCreationForm()

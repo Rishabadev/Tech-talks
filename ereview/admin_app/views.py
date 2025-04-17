@@ -8,6 +8,7 @@ from django.contrib.auth.models import Group
 
 from django.contrib.auth.decorators import user_passes_test
 
+
 def is_admin(user):
     return user.groups.filter(name='Admin').exists()
        
@@ -92,7 +93,6 @@ def admin_registration(request):
     return render(request, 'admin_app/admin_registration.html', {'form': form})
 
 from django.contrib import messages
-from django.contrib.auth import logout
 
 def admin_logout(request):
     logout(request)
@@ -121,4 +121,6 @@ class GroupBasedLoginView(LoginView):
             return '/home/'
         else:
             return '/'  
+
+
 

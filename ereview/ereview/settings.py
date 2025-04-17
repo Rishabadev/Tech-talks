@@ -132,3 +132,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/admin_app/dashboard/'
 LOGOUT_REDIRECT_URL = '/admin_app/login/'
+
+#email setup
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'rishabadevp@gmail.com'
+EMAIL_HOST_PASSWORD = 'rnsksosoazwxwbkg'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

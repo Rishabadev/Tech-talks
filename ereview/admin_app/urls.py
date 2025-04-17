@@ -4,6 +4,7 @@ from .views import admin_registration, admin_logout,home
 
 from .views import admin_registration, GroupBasedLoginView
 
+from django.contrib.auth import views as auth_views
 urlpatterns = [
     
     path('home/',home, name='home'),
@@ -29,6 +30,11 @@ urlpatterns = [
     path('login/', GroupBasedLoginView.as_view(), name='login'),
     path('logout/', admin_logout, name='admin_logout'),
 
+    
 
+    path('password_reset/',auth_views.PasswordResetView.as_view(template_name='admin_app/pass_reset.html'), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='admin_app/pass_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='admin_app/pass_reset_confirm.html'), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='admin_app/pass_reset_complete.html'), name='password_reset_complete'),
 
 ]
