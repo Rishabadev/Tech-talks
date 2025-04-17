@@ -16,14 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from core.views import CustomLoginView
 
+from django.shortcuts import redirect
+from admin_app.views import root_redirect
 urlpatterns = [
     path('admin/', admin.site.urls),
-   path('', CustomLoginView.as_view(), name='core_login'),
-    path('admin-panel/', include('admin_app.urls')),
-    path('user/',include('techtalks.urls')),
-    path('login/',CustomLoginView.as_view(), name='login'),
+    path('', root_redirect), 
+     path('', include('admin_app.urls')),
+path('', include('techtalks.urls')),
+   
 ]
 from django.conf import settings
 from django.conf.urls.static import static

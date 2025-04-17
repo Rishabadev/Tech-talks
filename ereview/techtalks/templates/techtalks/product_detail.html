@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+{% block content %}
+
+<body>
+    <h1>{{ product.name }}</h1>
+
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300">
+    {% endif %}
+
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <p><strong>Category:</strong> {{ product.category.name }}</p>
+
+    <hr>
+    <h2>Reviews</h2>
+
+    {% if reviews %}
+        {% for review in reviews %}
+            <div style="border: 1px solid #ddd; margin-bottom: 10px; padding: 8px;">
+                <strong>Rating:</strong> {{ review.rating }} / 5<br>
+                <p>{{ review.comment }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+
+    <hr>
+    <h2>Add a Review</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Review</button>
+    </form>
+</body>
+{% endblock %}

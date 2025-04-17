@@ -28,5 +28,3 @@ class AdminRegistrationForm(UserCreationForm):
         return user
       
 
-class AdminLoginForm(AuthenticationForm):
-    pass  # optional customization later   

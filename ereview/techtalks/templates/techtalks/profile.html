@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0" style="color: aliceblue;">My Profile</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item d-flex justify-content-between"><strong>Username:</strong> <span>{{ user.username }}</span></li>
+                        <li class="list-group-item d-flex justify-content-between"><strong>Email:</strong> <span>{{ user.email }}</span></li>
+                        <li class="list-group-item d-flex justify-content-between"><strong>First Name:</strong> <span>{{ user.first_name }}</span></li>
+                        <li class="list-group-item d-flex justify-content-between"><strong>Last Name:</strong> <span>{{ user.last_name }}</span></li>
+                    </ul>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'my_reviews' %}" class="btn btn-outline-primary">View My Reviews</a>
+                        <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Edit Profile</a>
+
+                        <a href="{% url 'admin_logout' %}" class="btn btn-outline-danger">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

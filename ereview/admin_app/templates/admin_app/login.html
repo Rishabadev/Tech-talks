@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - Tech Talks{% endblock %}
+
+{% block content %}
+    <style>
+        .split-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #f6b430, #000000);
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .left-panel img {
+            max-width: 60%;
+            margin-bottom: 1.5rem;
+        }
+
+        .left-panel h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .left-panel p {
+            font-size: 1.1rem;
+            max-width: 400px;
+        }
+
+        .right-panel {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .login-box {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            width: 320px;
+        }
+
+        .login-box h2 {
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+
+        .login-box input[type="text"],
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 0.6rem;
+            background: hsl(42, 88%, 52%);
+            border: none;
+            color: white;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-box .error {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-box p {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .login-box a {
+            color: #1d7df3;
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="split-container">
+        <div class="left-panel">
+            <img src="{% static 'images/login-tech.png' %}" alt="Tech Image">
+            <h1 style="color: aliceblue;">Welcome to Tech Talks</h1>
+            <p>Your space to explore, review and talk about the coolest electronic gadgets!</p>
+        </div>
+        <div class="right-panel">
+            <div class="login-box">
+                <h2>Login</h2>
+                {% if form.errors %}
+                    <div class="error">Invalid username or password.</div>
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div>
+                        {{ form.username.label_tag }}<br>
+                        {{ form.username }}
+                    </div>
+                    <div>
+                        {{ form.password.label_tag }}<br>
+                        {{ form.password }}
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <p>New user? <a href="{% url 'user_registration' %}">Register here</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

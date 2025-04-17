@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>My Reviews</h2>
+
+    {% if reviews %}
+        {% for review in reviews %}
+            <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
+                <h4>Product: {{ review.product.name }}</h4>
+                <p><strong>Rating:</strong> {{ review.rating }} / 5</p>
+                <p>{{ review.comment }}</p>
+                <p><em>Reviewed on: {{ review.created_at }}</em></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You haven't reviewed any products yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

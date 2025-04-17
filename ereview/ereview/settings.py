@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'techtalks',
     'admin_app',
-    'core',
+    
     
 ]
 
@@ -123,14 +123,12 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ereview/static')]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL = '/core_login/'
-
-LOGOUT_REDIRECT_URL = '/core_login/'
-LOGIN_REDIRECT_URL = '/admin_dashboard/'
+LOGIN_REDIRECT_URL = '/admin_app/dashboard/'
+LOGOUT_REDIRECT_URL = '/admin_app/login/'
