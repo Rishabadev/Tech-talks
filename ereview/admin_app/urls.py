@@ -25,7 +25,7 @@ urlpatterns = [
  
 
 
-    path('admin-registration/', admin_registration, name='admin_registration'),
+    path('admin-register/', admin_registration, name='admin_registration'),
 
     path('login/', GroupBasedLoginView.as_view(), name='login'),
     path('logout/', admin_logout, name='admin_logout'),

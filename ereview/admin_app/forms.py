@@ -16,13 +16,16 @@ class ProductForm(forms.ModelForm):
 
 
 class AdminRegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
     class Meta:
         model = User
-        fields = ['username','password1','password2']
+        fields = ['username','email','password1','password2']
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_staff = True  
+        user.email = self.cleaned_data['email']
+        user.is_staff = True
         if commit:
             user.save()
         return user

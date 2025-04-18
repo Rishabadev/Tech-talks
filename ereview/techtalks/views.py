@@ -1,6 +1,7 @@
 
 from django.shortcuts import render,get_object_or_404,redirect
-from admin_app.models import Product, Review  
+from admin_app.models import Product,Review
+
 from .forms import ReviewForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -11,20 +12,25 @@ def user_home(request):
     return render(request, 'techtalks/user_home.html')
 
 @login_required
-def add_review(request, product_id):
+def add_or_edit_review(request, product_id):
     product = get_object_or_404(Product, id=product_id)
+    try:
+        review = Review.objects.get(product=product, user=request.user)
+    except Review.DoesNotExist:
+        review = None
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
-            review = form.save(commit=False)
-            review.product = product  
-            review.save()
-            return redirect('product_detail', product_id=product.id)  
+            new_review = form.save(commit=False)
+            new_review.product = product
+            new_review.user = request.user
+            new_review.save()
+            return redirect('product_detail', product_id=product.id)
     else:
-        form = ReviewForm()
+        form = ReviewForm(instance=review)
 
-    return render(request, 'techtalks/add_review.html', {'form': form, 'product': product})
+    return render(request, 'techtalks/review.html', {'form': form, 'product': product})
 
 
 
@@ -35,25 +41,19 @@ def browse_products(request):
 
 @login_required
 def product_detail(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
+    product = get_object_or_404(Product, id=product_id)
     reviews = Review.objects.filter(product=product).order_by('-created_at')
-    
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.product = product
-            review.user = request.user
-            review.save()
-            return redirect('product_detail', product_id=product.id)
-    else:
-        form = ReviewForm()
-        
+    try:
+        user_review = Review.objects.get(product=product, user=request.user)
+    except Review.DoesNotExist:
+        user_review = None
+
     return render(request, 'techtalks/product_detail.html', {
         'product': product,
         'reviews': reviews,
-        'form': form
+        'user_review': user_review
     })
+
 @login_required
 def my_reviews(request):
     reviews = Review.objects.filter(user=request.user).order_by('-created_at')

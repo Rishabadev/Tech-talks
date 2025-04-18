@@ -1,23 +1,25 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .forms import ProductForm , AdminRegistrationForm
-from .models import Product,Review
+from .models import Product, Category,Review
 
 from django.urls import reverse
 from django.contrib.auth import logout
 from django.contrib.auth.models import Group
 
 from django.contrib.auth.decorators import user_passes_test
-
-
 def is_admin(user):
     return user.groups.filter(name='Admin').exists()
        
 @user_passes_test(is_admin)
 def add_product(request):
     if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+         
+         form = ProductForm(request.POST, request.FILES)
+
+         if form.is_valid():
+            product = form.save(commit=False)
+            product.added_by = request.user  # ✅ attach the current admin
+            product.save()
             return redirect('admin_product_list')
     else:
         form = ProductForm()
@@ -47,8 +49,9 @@ def delete_product(request, product_id):
 
 @user_passes_test(is_admin)
 def admin_product_list(request):
-    products=Product.objects.all()
-    return render(request, 'admin_app/admin_product_list.html',{'products':products})
+    
+    categories = Category.objects.prefetch_related('products').all()
+    return render(request, 'admin_app/admin_product_list.html', {'categories': categories})
 
     
 
@@ -85,6 +88,7 @@ def admin_registration(request):
         form = AdminRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            
             admin_group, created = Group.objects.get_or_create(name='Admin')
             user.groups.add(admin_group)
             return redirect('login')
